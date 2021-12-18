@@ -18,20 +18,20 @@ class Bullet(Sprite):
         self.bullet_color = self.setting.bullet_color
 
         # Making the scratch for the bullet...
-        self.complete_bullet = pygame.Rect(0,0,self.bullet_width,self.bullet_height)
+        self.rect = pygame.Rect(0,0,self.bullet_width,self.bullet_height)
 
         # Making it's position linked with the ship...
-        self.complete_bullet.midtop = ai.ship.ship_shape.midtop
+        self.rect.midtop = ai.ship.ship_shape.midtop
 
         # Making it's y-coordinate float...
-        self.complete_bullet.y = float(self.complete_bullet.y)
+        self.rect.y = float(self.rect.y)
 
     def update(self):
 # Note: this function name should be 'update'....
 #    --> Because while using the sprite.GROUP() it takes only function named 'update'...
         """Moving the bullet up...."""
-        self.complete_bullet.y -= self.bullet_speed
+        self.rect.y -= self.bullet_speed
 
     def draw_bullet(self):
         """For making the bullet..."""
-        pygame.draw.rect(self.screen,self.bullet_color,self.complete_bullet)
+        pygame.draw.rect(self.screen,self.bullet_color,self.rect)

@@ -134,12 +134,32 @@ class AlienInvasion:
     def _update_bullet(self):
         """For removing the excess bullets from the screen."""
         for bullet in self.bullets.copy():
-            if bullet.complete_bullet.bottom <= 0:
+            if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+
+        # for killing the alien with bullet...
+        collision = pygame.sprite.groupcollide(self.bullets,self.aliens,True,True)
+
                 
     def _update_alien(self):
         """For updating the position of the alien fleet."""
+        self._check_fleet_edge()
         self.aliens.update()
+
+    def _check_fleet_edge(self):
+        '''Checking hitting of alien with edge...'''
+        # .sprites() for making it list maybe....
+        for alien in self.aliens.sprites():
+            if alien.check_edge():
+                self._change_direction()
+                break
+
+    def _change_direction(self):
+        '''changing the direction of the fleet and droping it down again...'''
+        for alien in self.aliens.sprites():
+            alien.rect.y =  alien.rect.y + self.setting.alien_speed_y
+
+        self.setting.fleet_direction *= -1
 
     def _update_screen(self):
         """For redrawing every elements in screen before updating the screen..."""

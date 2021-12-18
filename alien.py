@@ -1,3 +1,4 @@
+from os import scandir
 import pygame
 from pygame.sprite import Sprite
 
@@ -21,5 +22,11 @@ class Alien(Sprite):
 
     def update(self):
         """For moving the fleet of the alien."""
-        self.x += self.setting.alien_speed_x
+        self.x += (self.setting.alien_speed_x * self.setting.fleet_direction)
         self.rect.x = self.x
+    
+    def check_edge(self):
+        """For checking the edge..."""
+        screen_rect = self.screen.get_rect()
+        if self.rect.right >= screen_rect.right or self.rect.left <= 0:
+            return True

@@ -18,8 +18,8 @@ class Setting:
         self.max_bullets = 3
 
         # for alien fleet....
-        self.alien_speed_x = 0.7
-        self.alien_speed_y = 0.9
+        self.alien_speed_x = 1
+        self.alien_speed_y = 10
 
         '''For fleet direction:- '''
         # 1 => right direction
