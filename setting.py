@@ -16,3 +16,12 @@ class Setting:
         self.bullet_width = 4
         self.bullet_height = 15
         self.max_bullets = 3
+
+        # for alien fleet....
+        self.alien_speed_x = 0.7
+        self.alien_speed_y = 0.9
+
+        '''For fleet direction:- '''
+        # 1 => right direction
+        # -1 => left direction
+        self.fleet_direction = 1

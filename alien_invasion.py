@@ -39,6 +39,7 @@ class AlienInvasion:
             self.ship.update_ship()
             self.bullets.update()   # Pay attention while using this method hai...
             self._update_bullet()
+            self._update_alien()
             self._update_screen()
 
     # Helping methods.............
@@ -136,6 +137,10 @@ class AlienInvasion:
             if bullet.complete_bullet.bottom <= 0:
                 self.bullets.remove(bullet)
                 
+    def _update_alien(self):
+        """For updating the position of the alien fleet."""
+        self.aliens.update()
+
     def _update_screen(self):
         """For redrawing every elements in screen before updating the screen..."""
         
