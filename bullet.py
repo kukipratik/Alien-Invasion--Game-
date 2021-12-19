@@ -21,7 +21,7 @@ class Bullet(Sprite):
         self.rect = pygame.Rect(0,0,self.bullet_width,self.bullet_height)
 
         # Making it's position linked with the ship...
-        self.rect.midtop = ai.ship.ship_shape.midtop
+        self.rect.midtop = ai.ship.rect.midtop
 
         # Making it's y-coordinate float...
         self.rect.y = float(self.rect.y)

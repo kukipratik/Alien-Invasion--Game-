@@ -9,6 +9,7 @@ class Setting:
 
         # for ship...
         self.ship_speed = 1.5
+        self.ship_limit = 3
 
         # for bullet...
         self.bullet_speed = 1.75
@@ -19,7 +20,7 @@ class Setting:
 
         # for alien fleet....
         self.alien_speed_x = 1
-        self.alien_speed_y = 10
+        self.alien_speed_y = 100
 
         '''For fleet direction:- '''
         # 1 => right direction
