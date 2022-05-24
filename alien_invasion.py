@@ -2,11 +2,14 @@ import sys
 import pygame
 from time import sleep
 
+from pygame import mouse
+
 from setting import Setting
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
+from button import Button
 
 class AlienInvasion:
     """Class for game to manage it's behaviours."""
@@ -31,6 +34,9 @@ class AlienInvasion:
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self._create_alien_fleet() 
+
+        # for the button.....
+        self.play_button = Button(self,'Play')
 
     '''Note:- The "rect" of any sprite is needed in order to find the collision between using "pygame". '''
 
@@ -111,6 +117,33 @@ class AlienInvasion:
             # When player releases the key--------
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+
+            # When Player presses the mouse button......
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button_click(mouse_pos)
+    
+    def _check_play_button_click(self,mouse_pos):
+        """To start new game when player clicks the play button."""
+        
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        
+        if button_clicked and not self.stats.game_active :
+            
+            # for Activing the game...
+            self.stats.game_active = True
+
+            # for Reseting the game stats and removing the remaining elements...
+            self.stats.reset_stats()
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # for creating new elements....
+            self._create_alien_fleet()
+            self.ship.center_ship()
+
+            # Making the mouse invisible...
+            pygame.mouse.set_visible(False)
 
     def _check_keydown_events(self,event):
         """Responds to the pressing the keys..."""
@@ -197,6 +230,7 @@ class AlienInvasion:
 
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_fleet_edge(self):
         '''Checking hitting of alien with edge...'''
@@ -230,9 +264,9 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
         """This draw() method is readymade method in 'sprite.Group' """
 
-# for who is wandering how come 'bullet' have method 'draw_bullet()'; it's because:
-#   --> bullet comes from 'group of sprites' and while making that group we used 'new_bullet' to make 'bullet'...
-#   which in turn means that 'bullet' is originated from 'new_bullet' i.e. bullet is new_bullet which is instance.
+        # Drawing the play button when game is inactive...
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         #for changing the screen motion.......
         pygame.display.flip()

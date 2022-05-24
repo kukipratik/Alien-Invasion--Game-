@@ -7,7 +7,7 @@ class GameStats:
         self.reset_stats()
 
         # Active or inactive status of the ship....
-        self.game_active = True
+        self.game_active = False
 
     def reset_stats(self):
         """For reseting new game. """
